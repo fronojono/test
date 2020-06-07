@@ -4,11 +4,9 @@ import { Button, DialogContainer, TextField } from 'react-md'
 import html2canvas from 'html2canvas'
 import ListItem from "./item";
 import jspdf from 'jspdf'
-import axios from 'axios';
 
 class Posts extends Component {
     state = {
-        posts: [],
         visible: false,
         title: '',
         body: '',
@@ -18,11 +16,9 @@ class Posts extends Component {
         visibleUpdate: false,
         visibleDelete: false,
 
+
     }
-    componentDidMount() {
-        axios.get(`https://jsonplaceholder.typicode.com/posts`)
-            .then((res) => this.setState({ posts: res.data }))
-    }
+
 
 
     show = () => {
@@ -61,9 +57,7 @@ class Posts extends Component {
     addNewPost = () => {
 
         const { title, body, userId } = this.state
-        console.log('Title', title)
-        console.log('body', body)
-        console.log('userId', userId)
+
         fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'POST',
             body: JSON.stringify({
@@ -129,7 +123,8 @@ class Posts extends Component {
 
 
     render() {
-        const { posts, visible, title, body, userId, object, visibleUpdate, visibleDelete } = this.state
+        const { visible, title, body, userId, object, visibleUpdate, visibleDelete } = this.state
+        const { posts } = this.props
         const actions = []
         actions.push(
             <Button
